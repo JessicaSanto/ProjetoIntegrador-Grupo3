@@ -65,6 +65,12 @@ class Registro(mybd.Model):
 # ********************* MQTT ****************************************
 mqtt_dados = {}
 
+import paho.mqtt.client as mqtt
+
+
+
+
+
 def conexao_sensor(client, userdata, flags, rc):
     print("Conectado ao broker MQTT com código:", rc)
     client.subscribe("projeto_integrado/SENAI134/Cienciadedados/grupo1")
@@ -74,6 +80,14 @@ def msg_sensor(client, userdata, msg):
 
     valor = msg.payload.decode('utf-8')
     mqtt_dados = json.loads(valor)
+
+    
+    client = mqtt.Client()
+    client.on_connect = conexao_sensor
+    client.on_message = msg_sensor
+
+    client.connect("test.mosquitto.org", 1883, 60)
+    client.loop_start()  # mantém o loop em paralelo
 
     print(f"Mensagem Recebida: {mqtt_dados}")
 
@@ -123,6 +137,7 @@ mqtt_client.connect("test.mosquitto.org", 1883, 60)
 
 def start_mqtt():
     mqtt_client.loop_start()
+
 
 
 # ********************* ENDPOINTS **********************************
