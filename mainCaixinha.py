@@ -80,15 +80,6 @@ def msg_sensor(client, userdata, msg):
 
     valor = msg.payload.decode('utf-8')
     mqtt_dados = json.loads(valor)
-
-    
-    client = mqtt.Client()
-    client.on_connect = conexao_sensor
-    client.on_message = msg_sensor
-
-    client.connect("test.mosquitto.org", 1883, 60)
-    client.loop_start()  # mantém o loop em paralelo
-
     print(f"Mensagem Recebida: {mqtt_dados}")
 
     with app.app_context():
@@ -128,8 +119,7 @@ def msg_sensor(client, userdata, msg):
         except Exception as e:
             print(f"Erro ao processar dados do MQTT: {e}")
             mybd.session.rollback()
-
-
+            
 mqtt_client = mqtt.Client()
 mqtt_client.on_connect = conexao_sensor
 mqtt_client.on_message = msg_sensor
