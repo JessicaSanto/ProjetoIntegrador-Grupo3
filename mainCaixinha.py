@@ -15,7 +15,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 server_name= 'datascience-gp3.mysql.database.azure.com'
 port='3306'
-username='grupo3@datascience-gp3'
+username='grupo3'
 password= 'Senai%40134'
 database='db_medidor2'
 
