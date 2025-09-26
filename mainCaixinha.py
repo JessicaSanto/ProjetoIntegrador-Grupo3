@@ -88,19 +88,15 @@ def msg_sensor(client, userdata, msg):
             pressao = mqtt_dados.get('pressure')
             altitude = mqtt_dados.get('altitude')
             umidade = mqtt_dados.get('humidity')
-            co2 = mqtt_dados.get('co2')
-            poeira = mqtt_dados.get('particula1')
+            co2 = mqtt_dados.get('CO2')             # corrigido
+            poeira = mqtt_dados.get('particula1')   # opcional: somar com particula2
             tempo_registro = mqtt_dados.get('timestamp')
 
             if tempo_registro is None:
                 print("TimeStamp não encontrado no payload")
                 return
 
-            try:
-                tempo_oficial = datetime.fromtimestamp(int(tempo_registro), tz=timezone.utc)
-            except Exception as e:
-                print("Erro ao converter timestamp:", e)
-                return
+            tempo_oficial = datetime.fromtimestamp(int(tempo_registro), tz=timezone.utc)
 
             novos_dados = Registro(
                 temperatura=temperatura,
@@ -114,10 +110,10 @@ def msg_sensor(client, userdata, msg):
 
             mybd.session.add(novos_dados)
             mybd.session.commit()
-            print("Dados inseridos no banco de dados com sucesso!")
+            print("✅ Dados inseridos no banco de dados com sucesso!")
 
         except Exception as e:
-            print(f"Erro ao processar dados do MQTT: {e}")
+            print(f"❌ Erro ao processar dados do MQTT: {e}")
             mybd.session.rollback()
 
 mqtt_client = mqtt.Client()
