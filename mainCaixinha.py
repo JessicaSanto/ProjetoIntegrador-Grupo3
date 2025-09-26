@@ -119,7 +119,7 @@ def msg_sensor(client, userdata, msg):
         except Exception as e:
             print(f"Erro ao processar dados do MQTT: {e}")
             mybd.session.rollback()
-            
+
 mqtt_client = mqtt.Client()
 mqtt_client.on_connect = conexao_sensor
 mqtt_client.on_message = msg_sensor
@@ -226,4 +226,4 @@ if __name__ == "__main__":
     with app.app_context():
         mybd.create_all()
         start_mqtt()
-        app.run(port=5000, host="localhost", debug=True)
+        app.run(port=5000, host="0.0.0.0", debug=True)
