@@ -15,7 +15,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 server_name= 'datascience-gp3.mysql.database.azure.com'
 port='3306'
-username='grupo3@datascience-gp3'
+username='grupo3'
 password= 'Senai%40134'
 database='db_medidor2'
 
@@ -73,7 +73,7 @@ import paho.mqtt.client as mqtt
 
 def conexao_sensor(client, userdata, flags, rc):
     print("Conectado ao broker MQTT com código:", rc)
-    client.subscribe("projeto_integrado/SENAI134/Cienciadedados/grupo1")
+    client.subscribe("projeto_integrado/SENAI134/Cienciadedados/grupo3")
 
 def msg_sensor(client, userdata, msg):
     global mqtt_dados
@@ -218,8 +218,8 @@ def gera_resposta(status, nome_do_conteudo, conteudo, mensagem=False):
 
 
 # ********************* MAIN ***************************************
-if __name__ == "__main__":
-    with app.app_context():
-        mybd.create_all()
-        start_mqtt()
-        app.run(port=5000, host="0.0.0.0", debug=True)
+# if __name__ == "__main__":
+#     with app.app_context():
+#         mybd.create_all()
+start_mqtt()
+app.run(port=5000, host="0.0.0.0", debug=True)
