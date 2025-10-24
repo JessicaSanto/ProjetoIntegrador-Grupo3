@@ -222,4 +222,4 @@ def gera_resposta(status, nome_do_conteudo, conteudo, mensagem=False):
 #     with app.app_context():
 #         mybd.create_all()
 start_mqtt()
-app.run(port=4000, host="0.0.0.0", debug=True)
+app.run(port=5003, host="0.0.0.0", debug=True)
